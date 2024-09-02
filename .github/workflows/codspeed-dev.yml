@@ -3,10 +3,10 @@ name: benchmarks
 on:
   workflow_dispatch:
   # TODO: uncomment after forking
-  # push:
-  #   branches:
-  #     - "main"
-  # pull_request:
+  push:
+    branches:
+      - "main"
+  pull_request:
 
 jobs:
   benchmarks:
