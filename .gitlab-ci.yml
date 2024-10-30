@@ -1,0 +1,23 @@
+variables:
+  CODSPEED_LOG: trace
+  CODSPEED_RUNNER_VERSION: 3.1.1-beta.1
+
+workflow:
+  rules:
+    - if: $CI_PIPELINE_SOURCE == 'merge_request_event'
+    - if: $CI_COMMIT_TAG
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+
+codspeed:
+  stage: test
+  image: rust
+  before_script:
+    - apt-get update -y
+    - apt-get install -y build-essential python3-dev libxml2-dev libxslt-dev
+    - curl -LsSf https://astral.sh/uv/install.sh | sh
+    - uv venv
+    - uv pip install -r requirements.txt
+    - curl -fsSL https://github.com/CodSpeedHQ/runner/releases/download/v$CODSPEED_RUNNER_VERSION/codspeed-runner-installer.sh | bash -s -- --quiet
+    # - cargo install --git https://github.com/CodSpeedHQ/runner --branch feat/gitlab-ci-support
+  script:
+    - codspeed run --upload-url="$CODSPEED_DEV_UPLOAD_URL" -- uv run pytest tests/ --codspeed
