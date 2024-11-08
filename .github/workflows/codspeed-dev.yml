@@ -10,6 +10,12 @@ on:
 
 jobs:
   benchmarks:
+    strategy:
+      matrix:
+        runner-version:
+          # - '2.4.3'
+          - '3.1.0'
+          - '3.1.1-beta.1'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -24,3 +30,4 @@ jobs:
           run: pytest tests/ --codspeed
           upload-url: ${{ secrets.CODSPEED_DEV_UPLOAD_URL }}/upload
           token: ${{ secrets.CODSPEED_DEV_TOKEN }}
+          runner-version: ${{ matrix.runner-version }}
