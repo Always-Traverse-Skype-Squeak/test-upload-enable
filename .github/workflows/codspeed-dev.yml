@@ -13,7 +13,7 @@ jobs:
     strategy:
       matrix:
         runner-version:
-          # - '2.4.3'
+          - '3.0.0'
           - '3.1.0'
           - '3.1.1-beta.1'
     runs-on: ubuntu-latest
