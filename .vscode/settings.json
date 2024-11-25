@@ -1,5 +1,6 @@
 {
     "cSpell.words": [
         "codspeed"
-    ]
+    ],
+    "python.defaultInterpreterPath": ".venv/bin/python"
 }
