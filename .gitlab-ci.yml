@@ -8,7 +8,7 @@ codspeed:
   image: python
   variables:
     CODSPEED_LOG: trace
-    CODSPEED_RUNNER_VERSION: 3.1.1-beta.1
+    CODSPEED_RUNNER_VERSION: 3.2.0
   before_script:
     - pip install -r requirements.txt
     - curl -fsSL https://github.com/CodSpeedHQ/runner/releases/download/v$CODSPEED_RUNNER_VERSION/codspeed-runner-installer.sh | bash -s -- --quiet
