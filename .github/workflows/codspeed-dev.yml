@@ -4,6 +4,8 @@ on:
   workflow_dispatch:
   # TODO: uncomment after forking
   push:
+    tags:
+      - "v*"
     branches:
       - "main"
   pull_request:
