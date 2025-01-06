@@ -42,10 +42,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      # - uses: actions/setup-python@v5
-      #   with:
-      #     python-version: "3.12.5"
-      # - run: pip install -r requirements.txt
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12.5"
+      - run: pip install -r requirements.txt
 
       - name: Get Current Job Log URL
         id: jobs
@@ -75,10 +75,10 @@ jobs:
           echo '${{ toJson(github) }}'
           echo '${{ toJson(strategy) }}'
 
-      # - name: Run the action
-      #   uses: CodSpeedHQ/action@main
-      #   with:
-      #     run: pytest tests/ --codspeed
-      #     upload-url: ${{ secrets.CODSPEED_DEV_UPLOAD_URL }}/upload
-      #     token: ${{ secrets.CODSPEED_DEV_TOKEN }}
-      #     runner-version: ${{ matrix.runner-version }}
+      - name: Run the action
+        uses: CodSpeedHQ/action@914e3efab7ac5bc3955199e85cf2ac2a0ca3119b
+        with:
+          run: pytest tests/ --codspeed
+          upload-url: ${{ secrets.CODSPEED_DEV_UPLOAD_URL }}/upload
+          token: ${{ secrets.CODSPEED_DEV_TOKEN }}
+          runner-version: ${{ matrix.runner-version }}
