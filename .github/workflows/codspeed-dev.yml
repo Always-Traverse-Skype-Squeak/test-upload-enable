@@ -2,7 +2,6 @@ name: benchmarks
 
 on:
   workflow_dispatch:
-  # TODO: uncomment after forking
   push:
     tags:
       - "v*"
@@ -11,35 +10,15 @@ on:
   pull_request:
 
 jobs:
-  toto:
-    runs-on: ubuntu-latest
-    steps:
-      - name: A useless step
-        env:
-          INPUT_GITHUB_TOKEN: ${{ github.token }}
-          INPUT_REPOSITORY: ${{ github.repository }}
-          INPUT_RUN_ID: ${{ github.run_id }}
-          INPUT_PER_PAGE: 30
-        shell: bash
-        run: |
-          GITHUB_API="/repos/${INPUT_REPOSITORY}/actions/runs/${INPUT_RUN_ID}/jobs"
-          JOBINFO="$(curl --get -Ss -H "Authorization: Bearer ${INPUT_GITHUB_TOKEN}" -H "Accept: application/vnd.github+json" -H "X-GitHub-Api-Version: 2022-11-28" "${GITHUB_API_URL}${GITHUB_API}?per_page=${INPUT_PER_PAGE}")"
-          echo $JOBINFO
-          echo $GITHUB_JOB
-          echo '${{ toJson(job) }}'
-          echo '${{ toJson(steps) }}'
-          echo '${{ toJson(env) }}'
-          echo '${{ toJson(github) }}'
-
   benchmarks:
-    name: 'Test Benchmarks'
     strategy:
       matrix:
+        runs-on: [ubuntu-latest, codspeed-macro-codspeed-francois-dev]
+        shard: [1,2,3,4]
         runner-version:
-          # - '3.0.0'
-          # - '3.1.0'
-          - '3.2.0'
-    runs-on: ubuntu-latest
+          - '3.4.0'
+    name: 'Run Benchmarks'
+    runs-on: ${{ matrix.runs-on }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -47,38 +26,10 @@ jobs:
           python-version: "3.12.5"
       - run: pip install -r requirements.txt
 
-      - name: Get Current Job Log URL
-        id: jobs
-        env:
-          INPUT_GITHUB_TOKEN: ${{ github.token }}
-          INPUT_REPOSITORY: ${{ github.repository }}
-          INPUT_RUN_ID: ${{ github.run_id }}
-          INPUT_PER_PAGE: 30
-        shell: bash
-        run: |
-          GITHUB_API="/repos/${INPUT_REPOSITORY}/actions/runs/${INPUT_RUN_ID}/jobs"
-          JOBINFO="$(curl --get -Ss -H "Authorization: Bearer ${INPUT_GITHUB_TOKEN}" -H "Accept: application/vnd.github+json" -H "X-GitHub-Api-Version: 2022-11-28" "${GITHUB_API_URL}${GITHUB_API}?per_page=${INPUT_PER_PAGE}")"
-          echo $JOBINFO
-          echo $GITHUB_JOB
-          echo "----summary-----"
-          echo foo >> "$GITHUB_STEP_SUMMARY"
-          cat "$GITHUB_STEP_SUMMARY"
-          echo "----env----"
-          cat "$GITHUB_ENV"
-          echo "---path---"
-          cat "$GITHUB_PATH"
-          echo "-------------"
-          echo '${{ toJson(job) }}'
-          echo '${{ toJson(steps) }}'
-          echo '${{ toJson(matrix) }}'
-          echo '${{ toJson(env) }}'
-          echo '${{ toJson(github) }}'
-          echo '${{ toJson(strategy) }}'
-
       - name: Run the action
-        uses: CodSpeedHQ/action@914e3efab7ac5bc3955199e85cf2ac2a0ca3119b
+        uses: CodSpeedHQ/action@v3
         with:
-          run: pytest tests/ --codspeed
+          run: pytest tests/ --codspeed --test-group=${{ matrix.shard }} --test-group-count=${{ strategy.job-total }}
           upload-url: ${{ secrets.CODSPEED_DEV_UPLOAD_URL }}/upload
           token: ${{ secrets.CODSPEED_DEV_TOKEN }}
           runner-version: ${{ matrix.runner-version }}
