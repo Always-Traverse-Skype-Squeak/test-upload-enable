@@ -29,7 +29,7 @@ jobs:
       - name: Run the action
         uses: CodSpeedHQ/action@v3
         with:
-          run: pytest tests/ --codspeed --test-group=${{ matrix.shard }} --test-group-count=${{ strategy.job-total }}
+          run: pytest tests/ --codspeed --test-group=${{ matrix.shard }} --test-group-count=4
           upload-url: ${{ secrets.CODSPEED_DEV_UPLOAD_URL }}/upload
           token: ${{ secrets.CODSPEED_DEV_TOKEN }}
           runner-version: ${{ matrix.runner-version }}
