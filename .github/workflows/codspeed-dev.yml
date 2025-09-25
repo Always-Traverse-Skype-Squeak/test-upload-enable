@@ -15,8 +15,12 @@ jobs:
       matrix:
         runs-on:
           - ubuntu-latest
-          # - codspeed-macro-codspeed-francois-dev
-        shard: [1,2,3,4]
+          - codspeed-macro-codspeed-francois-dev
+        shard:
+          - 1
+          # - 2
+          # - 3
+          # - 4
         runner-version:
           - 'latest'
     name: 'Run Benchmarks'
