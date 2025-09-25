@@ -18,9 +18,7 @@ jobs:
           - codspeed-macro-codspeed-francois-dev
         shard:
           - 1
-          # - 2
-          # - 3
-          # - 4
+          - 2
         runner-version:
           - 'latest'
     name: 'Run Benchmarks'
@@ -35,7 +33,7 @@ jobs:
       - name: Run the action
         uses: CodSpeedHQ/action@v4
         with:
-          run: pytest tests/ --codspeed --test-group=${{ matrix.shard }} --test-group-count=4
+          run: pytest tests/ --codspeed --test-group=${{ matrix.shard }} --test-group-count=2
           mode: ${{ matrix.runs-on == 'ubuntu-latest' && 'instrumentation' || 'walltime' }}
           upload-url: ${{ secrets.CODSPEED_DEV_UPLOAD_URL }}/upload
           token: ${{ secrets.CODSPEED_DEV_TOKEN }}
