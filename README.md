@@ -1,5 +1,7 @@
 # CodSpeed Test Sample Repository
 
+[![CodSpeed Badge](https://img.shields.io/endpoint?url=https://codspeed.io/badge.json)](https://codspeed.io/AvalancheHQ/francois-python-test)
+
 ---
 
 This a sample repository to test the [CodSpeed](https://github.com/CodSpeedHQ/codspeed) application.
