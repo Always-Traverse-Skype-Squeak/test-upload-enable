@@ -19,17 +19,17 @@ codspeed:
     CODSPEED_LOG: trace
     CODSPEED_RUNNER_VERSION: 3.2.0
     CARGO_HOME: $CI_PROJECT_DIR/.cargo
-  # cache:
-  #   key: rust-cache
-  #   paths:
-  #     - .cargo/bin/
-  #     - .cargo/registry/index/
-  #     - .cargo/registry/cache/
-  #     - .cargo/git/db/
+  cache:
+    key: rust-cache
+    paths:
+      - .cargo/bin/
+      - .cargo/registry/index/
+      - .cargo/registry/cache/
+      - .cargo/git/db/
   before_script:
     - pip install -r requirements.txt
     - curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
-    - source $HOME/.cargo/env
+    - source "/builds/francois_codspeed/test-oidc/.cargo/env"
     - cargo install --git https://github.com/CodSpeedHQ/runner --branch cod-1469-remove-the-codspeed-token-from-the-setup
   script:
     - codspeed run --mode instrumentation --upload-url="$CODSPEED_DEV_UPLOAD_URL" -- pytest tests/ --codspeed
