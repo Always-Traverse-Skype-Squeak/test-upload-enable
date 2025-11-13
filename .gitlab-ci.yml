@@ -17,7 +17,7 @@ codspeed:
     CODSPEED_TOKEN:
       aud: codspeed
   stage: test
-  image: python
+  image: python:3.13-bookworm
   variables:
     CODSPEED_LOG: trace
     CODSPEED_RUNNER_VERSION: 3.2.0
