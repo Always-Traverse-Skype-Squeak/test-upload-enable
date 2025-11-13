@@ -29,7 +29,7 @@ codspeed:
   before_script:
     - pip install -r requirements.txt
     - curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
-    - source $HOME/.cargo/env
+    # - source $HOME/.cargo/env
     - cargo install --git https://github.com/CodSpeedHQ/runner --branch cod-1469-remove-the-codspeed-token-from-the-setup
   script:
     - codspeed run --mode instrumentation --upload-url="$CODSPEED_DEV_UPLOAD_URL" -- pytest tests/ --codspeed
