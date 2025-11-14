@@ -31,9 +31,9 @@ codspeed:
       - .cargo/git/db/
   before_script:
     - pip install -r requirements.txt
-    - curl -fsSL https://github.com/CodSpeedHQ/runner/releases/download/v$CODSPEED_RUNNER_VERSION/codspeed-runner-installer.sh | bash -s -- --quiet
     # - curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
-    # - source .cargo/env
+    - curl -fsSL https://github.com/CodSpeedHQ/runner/releases/download/v$CODSPEED_RUNNER_VERSION/codspeed-runner-installer.sh | bash -s -- --quiet
+    - source .cargo/env
     # - cargo install --git https://github.com/CodSpeedHQ/runner --branch cod-1469-remove-the-codspeed-token-from-the-setup
   script:
     - codspeed run --mode instrumentation --upload-url="$CODSPEED_DEV_UPLOAD_URL" -- pytest tests/ --codspeed
