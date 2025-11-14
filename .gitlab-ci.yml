@@ -20,7 +20,7 @@ codspeed:
   image: python:3.13-bookworm
   variables:
     CODSPEED_LOG: trace
-    CODSPEED_RUNNER_VERSION: 3.2.0
+    CODSPEED_RUNNER_VERSION: 4.3.5-beta.1
     CARGO_HOME: $CI_PROJECT_DIR/.cargo
   cache:
     key: rust-cache
@@ -31,8 +31,9 @@ codspeed:
       - .cargo/git/db/
   before_script:
     - pip install -r requirements.txt
-    - curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
-    - source "/builds/francois_codspeed/test-oidc/.cargo/env"
-    - cargo install --git https://github.com/CodSpeedHQ/runner --branch cod-1469-remove-the-codspeed-token-from-the-setup
+    - curl -fsSL https://github.com/CodSpeedHQ/runner/releases/download/v$CODSPEED_RUNNER_VERSION/codspeed-runner-installer.sh | bash -s -- --quiet
+    # - curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+    # - source .cargo/env
+    # - cargo install --git https://github.com/CodSpeedHQ/runner --branch cod-1469-remove-the-codspeed-token-from-the-setup
   script:
     - codspeed run --mode instrumentation --upload-url="$CODSPEED_DEV_UPLOAD_URL" -- pytest tests/ --codspeed
