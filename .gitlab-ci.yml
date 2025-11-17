@@ -15,7 +15,7 @@ workflow:
 codspeed:
   id_tokens:
     CODSPEED_TOKEN:
-      aud: codspeed
+      aud: codspeed.io
   stage: test
   image: python:3.13-bookworm
   variables:
