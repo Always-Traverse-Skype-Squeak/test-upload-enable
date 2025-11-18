@@ -37,28 +37,28 @@ jobs:
           python-version: "3.12.5"
       - run: pip install -r requirements.txt
 
-#      - name: Run the action
-#        uses: CodSpeedHQ/action@v4
-#        with:
-#          run: pytest tests/ --codspeed --test-group=${{ matrix.shard }} --test-group-count=2
-#          mode: ${{ matrix.runs-on == 'ubuntu-latest' && 'instrumentation' || 'walltime' }}
-#          upload-url: ${{ secrets.CODSPEED_DEV_UPLOAD_URL }}/upload
-#          # token: ${{ secrets.CODSPEED_DEV_TOKEN }}
-#          runner-version: ${{ matrix.runner-version }}
-
-      - name: Cache Rust dependencies
-        uses: Swatinem/rust-cache@v2
+      - name: Run the action
+        uses: CodSpeedHQ/action@v4
         with:
-          prefix-key: "codspeed-runner"
-          shared-key: "cod-1469-remove-the-codspeed-token-from-the-setup"
-          cache-targets: false
-          cache-all-crates: true
+          run: pytest tests/ --codspeed --test-group=${{ matrix.shard }} --test-group-count=2
+          mode: ${{ matrix.runs-on == 'ubuntu-latest' && 'instrumentation' || 'walltime' }}
+          upload-url: ${{ secrets.CODSPEED_DEV_UPLOAD_URL }}/upload
+          # token: ${{ secrets.CODSPEED_DEV_TOKEN }}
+          runner-version: ${{ matrix.runner-version }}
 
-      - name: Setup CodSpeed from source
-        run: cargo install --git https://github.com/CodSpeedHQ/runner --branch cod-1469-remove-the-codspeed-token-from-the-setup
-
-      - name: Run the benchmarks
-        run: codspeed run
-          --mode ${{ matrix.runs-on == 'ubuntu-latest' && 'instrumentation' || 'walltime' }}
-          --upload-url "${{ secrets.CODSPEED_DEV_UPLOAD_URL }}/upload"
-          -- pytest tests/ --codspeed --test-group=${{ matrix.shard }} --test-group-count=2
+#      - name: Cache Rust dependencies
+#        uses: Swatinem/rust-cache@v2
+#        with:
+#          prefix-key: "codspeed-runner"
+#          shared-key: "cod-1469-remove-the-codspeed-token-from-the-setup"
+#          cache-targets: false
+#          cache-all-crates: true
+#
+#      - name: Setup CodSpeed from source
+#        run: cargo install --git https://github.com/CodSpeedHQ/runner --branch cod-1469-remove-the-codspeed-token-from-the-setup
+#
+#      - name: Run the benchmarks
+#        run: codspeed run
+#          --mode ${{ matrix.runs-on == 'ubuntu-latest' && 'instrumentation' || 'walltime' }}
+#          --upload-url "${{ secrets.CODSPEED_DEV_UPLOAD_URL }}/upload"
+#          -- pytest tests/ --codspeed --test-group=${{ matrix.shard }} --test-group-count=2
