@@ -15,7 +15,7 @@ env:
 jobs:
   benchmarks:
     permissions:
-      #      contents: read
+      contents: read
       id-token: write
     strategy:
       matrix:
