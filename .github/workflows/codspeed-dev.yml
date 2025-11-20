@@ -26,8 +26,7 @@ jobs:
           - 1
           - 2
         runner-version:
-          # - 'latest'
-          - '4.3.5-beta.2'
+          - 'latest'
 
     name: 'Run Benchmarks'
     runs-on: ${{ matrix.runs-on }}
@@ -61,5 +60,6 @@ jobs:
       - name: Run the benchmarks
         run: codspeed run
           --mode ${{ matrix.runs-on == 'ubuntu-latest' && 'instrumentation' || 'walltime' }}
+          --token ${{ secrets.CODSPEED_DEV_TOKEN }}
           --upload-url "${{ secrets.CODSPEED_DEV_UPLOAD_URL }}/upload"
           -- pytest tests/ --codspeed --test-group=${{ matrix.shard }} --test-group-count=2
