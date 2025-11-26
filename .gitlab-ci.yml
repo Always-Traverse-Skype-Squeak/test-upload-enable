@@ -1,16 +1,7 @@
-# workflow:
-#   rules:
-#     - if: $CI_PIPELINE_SOURCE == 'merge_request_event'
-#     - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
-
 workflow:
   rules:
     - if: $CI_PIPELINE_SOURCE == 'merge_request_event'
-    - if: $CI_PIPELINE_SOURCE == 'api' # using the api
-    - if: $CI_PIPELINE_SOURCE == 'trigger' # using a trigger token
-    - if: $CI_PIPELINE_SOURCE == 'web' # from the web interface
     - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
-    - if: $CI_COMMIT_TAG
 
 codspeed:
   id_tokens:
@@ -32,7 +23,8 @@ codspeed:
   before_script:
     - pip install -r requirements.txt
     # - curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
-    - curl -fsSL https://github.com/CodSpeedHQ/runner/releases/download/v$CODSPEED_RUNNER_VERSION/codspeed-runner-installer.sh | bash -s -- --quiet
+    # - curl -fsSL https://github.com/CodSpeedHQ/runner/releases/download/v$CODSPEED_RUNNER_VERSION/codspeed-runner-installer.sh | bash -s -- --quiet
+    - curl -fsSL https://github.com/CodSpeedHQ/runner/releases/latest/download/codspeed-runner-installer.sh | bash -s -- --quiet
     - source .cargo/env
     # - cargo install --git https://github.com/CodSpeedHQ/runner --branch cod-1469-remove-the-codspeed-token-from-the-setup
   script:
