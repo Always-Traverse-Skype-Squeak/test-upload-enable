@@ -13,14 +13,13 @@ codspeed:
     CODSPEED_LOG: trace
     RUNNER_VERSION: latest
     CODSPEED_UPLOAD_URL: $CODSPEED_DEV_UPLOAD_URL
-    CARGO_HOME: $CI_PROJECT_DIR/.cargo
-  # cache:
-  #   key: rust-cache
-  #   paths:
-  #     - .cargo/bin/
-  #     - .cargo/registry/index/
-  #     - .cargo/registry/cache/
-  #     - .cargo/git/db/
+  cache:
+    key: rust-cache
+    paths:
+      - .cargo/bin/
+      - .cargo/registry/index/
+      - .cargo/registry/cache/
+      - .cargo/git/db/
   before_script:
     - pip install -r requirements.txt
     - |
