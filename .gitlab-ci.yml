@@ -11,7 +11,7 @@ codspeed:
   image: python:3.12.8
   variables:
     CODSPEED_LOG: trace
-    CODSPEED_RUNNER_VERSION: 4.3.5-beta.1
+    RUNNER_VERSION: latest
     CODSPEED_UPLOAD_URL: $CODSPEED_DEV_UPLOAD_URL
     CARGO_HOME: $CI_PROJECT_DIR/.cargo
   cache:
@@ -23,10 +23,23 @@ codspeed:
       - .cargo/git/db/
   before_script:
     - pip install -r requirements.txt
-    # - curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
-    # - curl -fsSL https://github.com/CodSpeedHQ/runner/releases/download/v$CODSPEED_RUNNER_VERSION/codspeed-runner-installer.sh | bash -s -- --quiet
-    - curl -fsSL https://github.com/CodSpeedHQ/runner/releases/latest/download/codspeed-runner-installer.sh | bash -s
+    - |
+      if [ "$RUNNER_VERSION" = "latest" ]; then
+        CODSPEED_INSTALLER_URL="https://github.com/CodSpeedHQ/runner/releases/latest/download/codspeed-runner-installer.sh"
+      else
+        # Strip 'v' prefix if present to normalize version format
+        RUNNER_VERSION=$(echo "$RUNNER_VERSION" | sed 's/^v//')
+        CODSPEED_INSTALLER_URL="https://github.com/CodSpeedHQ/runner/releases/download/v$RUNNER_VERSION/codspeed-runner-installer.sh"
+      fi
+      echo "Installing CodSpeed Runner from $CODSPEED_INSTALLER_URL"
+      curl -fsSL $CODSPEED_INSTALLER_URL | bash -s -- --quiet
     - source $HOME/.cargo/env
-    # - cargo install --git https://github.com/CodSpeedHQ/runner --branch cod-1469-remove-the-codspeed-token-from-the-setup
+  # before_script:
+  #   - pip install -r requirements.txt
+  #   # - curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+  #   # - curl -fsSL https://github.com/CodSpeedHQ/runner/releases/download/v$CODSPEED_RUNNER_VERSION/codspeed-runner-installer.sh | bash -s -- --quiet
+  #   - curl -fsSL https://github.com/CodSpeedHQ/runner/releases/latest/download/codspeed-runner-installer.sh | bash -s
+  #   - source $HOME/.cargo/env
+  #   # - cargo install --git https://github.com/CodSpeedHQ/runner --branch cod-1469-remove-the-codspeed-token-from-the-setup
   script:
     - codspeed run --mode instrumentation -- pytest tests/ --codspeed
