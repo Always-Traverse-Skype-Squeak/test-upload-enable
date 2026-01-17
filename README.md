@@ -4,6 +4,8 @@
 
 ---
 
+Miam
+
 This a sample repository to test the [CodSpeed](https://github.com/CodSpeedHQ/codspeed) application.
 
 ## 🚀 Getting started
