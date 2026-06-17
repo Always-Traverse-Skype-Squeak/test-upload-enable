@@ -109,3 +109,5 @@ Pipfile.lock
 .benchmarks
 
 .venvubuntu
+
+.codspeed
