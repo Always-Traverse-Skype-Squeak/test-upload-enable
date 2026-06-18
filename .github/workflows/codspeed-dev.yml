@@ -22,6 +22,7 @@ jobs:
         runs-on:
           - ubuntu-latest
           #  - codspeed-macro-codspeed-francois-dev
+          - codspeed-macro
         shard:
           - 1
           - 2
