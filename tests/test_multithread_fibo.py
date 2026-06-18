@@ -28,6 +28,7 @@ def _run_across_threads() -> list[int]:
     return results
 
 
+@pytest.mark.walltime_only
 @pytest.mark.benchmark(group="Parallel Fibo")
 def test_multithread_fibo(benchmark):
     @benchmark

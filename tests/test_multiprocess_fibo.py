@@ -22,6 +22,7 @@ def _run_across_processes() -> list[int]:
     return results
 
 
+@pytest.mark.walltime_only
 @pytest.mark.benchmark(group="Parallel Fibo")
 def test_multiprocess_fibo(benchmark):
     @benchmark
