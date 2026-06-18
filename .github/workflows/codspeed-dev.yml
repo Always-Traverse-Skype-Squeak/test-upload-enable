@@ -44,7 +44,10 @@ jobs:
       - name: Run the action
         uses: CodSpeedHQ/action@v4
         with:
-          run: pytest tests/ --codspeed --test-group=${{ matrix.shard }} --test-group-count=2
+          # Multithread/multiprocess benchmarks (marked `walltime_only`) are
+          # deselected in simulation runs: instrumentation cannot accurately
+          # measure parallel workloads, so they only run in walltime mode.
+          run: pytest tests/ --codspeed ${{ matrix.runs-on == 'ubuntu-latest' && '-m "not walltime_only"' || '' }} --test-group=${{ matrix.shard }} --test-group-count=2
           mode: ${{ matrix.runs-on == 'ubuntu-latest' && 'simulation' || 'walltime' }}
           upload-url: ${{ secrets.CODSPEED_DEV_UPLOAD_URL }}/upload
           # token: ${{ secrets.CODSPEED_DEV_TOKEN }}
