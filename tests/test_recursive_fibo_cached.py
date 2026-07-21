@@ -8,21 +8,8 @@ sys.setrecursionlimit(200000)
 
 
 @pytest.mark.benchmark(group="Recursive Fibo Cached")
-def test_recursive_cached_fibo_10(benchmark):
+@pytest.mark.parametrize("n", [10, 100, 1000])
+def test_recursive_cached_fibo(benchmark, n):
     @benchmark
     def _():
-        recursive_cached_fibonacci(10)
-
-
-@pytest.mark.benchmark(group="Recursive Fibo Cached")
-def test_recursive_cached_fibo_100(benchmark):
-    @benchmark
-    def _():
-        recursive_cached_fibonacci(100)
-
-
-@pytest.mark.benchmark(group="Recursive Fibo Cached")
-def test_recursive_cached_fibo_1000(benchmark):
-    @benchmark
-    def _():
-        recursive_cached_fibonacci(1000)
+        recursive_cached_fibonacci(n)
