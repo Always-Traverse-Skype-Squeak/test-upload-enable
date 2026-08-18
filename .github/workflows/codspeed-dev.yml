@@ -52,6 +52,7 @@ jobs:
           upload-url: ${{ secrets.CODSPEED_DEV_UPLOAD_URL }}/upload
           # token: ${{ secrets.CODSPEED_DEV_TOKEN }}
           runner-version: ${{ matrix.runner-version }}
+          exclude-allocations: "true"
 
       # - name: Cache Rust dependencies
       #   uses: Swatinem/rust-cache@v2
