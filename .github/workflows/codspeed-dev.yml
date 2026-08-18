@@ -42,7 +42,7 @@ jobs:
       - run: pip install -r requirements.txt
 
       - name: Run the action
-        uses: CodSpeedHQ/action@v4
+        uses: CodSpeedHQ/action@v5
         with:
           # Multithread/multiprocess benchmarks (marked `walltime_only`) are
           # deselected in simulation runs: instrumentation cannot accurately
