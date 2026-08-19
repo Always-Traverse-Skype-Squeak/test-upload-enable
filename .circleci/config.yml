@@ -1,0 +1,12 @@
+# .circleci/config.yml
+version: 2.1
+jobs:
+  probe:
+    machine: true
+    resource_class: ssssambaaaa/probe
+    steps:
+      - run: echo "cross-org dispatch works"
+workflows:
+  probe:
+    jobs:
+      - probe
