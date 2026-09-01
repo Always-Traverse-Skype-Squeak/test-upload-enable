@@ -23,9 +23,9 @@ jobs:
       fail-fast: false
       matrix:
         runs-on:
-          - ubuntu-latest
+          # - ubuntu-latest
           #  - codspeed-macro-codspeed-francois-dev
-          # - codspeed-macro
+          - codspeed-macro
         shard:
           - 1
           - 2
