@@ -7,4 +7,4 @@ from fibonacci import recursive_fibonacci
 def test_recursive_fibo(benchmark, n):
     @benchmark
     def _():
-        recursive_fibonacci(n)
+        recursive_fibonacci(n + 2)
