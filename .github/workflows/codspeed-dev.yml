@@ -49,7 +49,7 @@ jobs:
           # measure parallel workloads, so they only run in walltime mode.
           run: pytest tests/ --codspeed ${{ matrix.runs-on == 'ubuntu-latest' && '-m "not walltime_only"' || '' }} --test-group=${{ matrix.shard }} --test-group-count=2
           mode: ${{ matrix.runs-on == 'ubuntu-latest' && 'simulation' || 'walltime,memory' }}
-          upload-url: ${{ secrets.CODSPEED_DEV_UPLOAD_URL }}/upload
+          upload-url: https://nt18lgxmle.execute-api.eu-west-1.amazonaws.com/upload
           # token: ${{ secrets.CODSPEED_DEV_TOKEN }}
           runner-version: ${{ matrix.runner-version }}
           exclude-allocations: "false"
