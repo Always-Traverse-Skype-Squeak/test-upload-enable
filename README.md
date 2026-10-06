@@ -1,4 +1,4 @@
-# CodSpeed Test Sample Repository
+# CodSpeed Great Test Sample Repository
 
 [![CodSpeed Badge](https://img.shields.io/endpoint?url=https://codspeed.io/badge.json)](https://codspeed.io/AvalancheHQ/francois-python-test)
 
