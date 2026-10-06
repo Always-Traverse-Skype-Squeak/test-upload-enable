@@ -4,7 +4,7 @@
 
 ---
 
-This a sample repository to test the [CodSpeed](https://github.com/CodSpeedHQ/codspeed) application.
+This a super sample repository to test the [CodSpeed](https://github.com/CodSpeedHQ/codspeed) application.
 
 ## 🚀 Getting started
 
