@@ -24,15 +24,15 @@ jobs:
       matrix:
         runs-on:
           - ubuntu-latest
-          #  - codspeed-macro-codspeed-francois-dev
-          - codspeed-macro
+          # - codspeed-macro-codspeed-francois-dev
+          # - codspeed-macro
         shard:
           - 1
           - 2
         runner-version:
-          - 'latest'
+          - "latest"
 
-    name: 'Run Benchmarks'
+    name: "Run Benchmarks"
     runs-on: ${{ matrix.runs-on }}
     steps:
       - uses: actions/checkout@v4
